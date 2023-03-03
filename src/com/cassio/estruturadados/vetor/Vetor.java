@@ -1,6 +1,5 @@
 package com.cassio.estruturadados.vetor;
 
-import java.util.Arrays;
 
 public class Vetor {
 
@@ -30,8 +29,8 @@ public class Vetor {
 
         this.aumentacapacidade();
 
-        for(int i=this.tamanho; i>posicao; i--) {
-            this.elementos[i] = this.elementos[i-1];
+        for (int i = this.tamanho; i > posicao; i--) {
+            this.elementos[i] = this.elementos[i - 1];
         }
         this.elementos[posicao] = elemento;
         this.tamanho++;
@@ -40,11 +39,28 @@ public class Vetor {
     public void aumentacapacidade() {
         if (this.tamanho == this.elementos.length) {
             String[] novoVetor = new String[this.elementos.length * 2];
-            for (int i=0; i<this.tamanho; i++) {
+            for (int i = 0; i < this.tamanho; i++) {
                 novoVetor[i] = this.elementos[i];
             }
             this.elementos = novoVetor;
         }
+    }
+
+    // B G D E F -> remover posição 1(G)
+    // 0 1 2 3 4 -> tamanho é 5
+    // vetor[1] = vetor[2]
+    // vetor[2] = vetor[3]
+    // vetor[3] = vetor[4]
+    // B D E F F
+    // 0 1 2 3 4
+    public void remove(int posicao) {
+        if (!(posicao < this.tamanho && posicao >= 0)) {
+            throw new IllegalStateException("Posição inválida");
+        }
+        for (int i = posicao; i < this.tamanho - 1; i++) {
+            this.elementos[i] = this.elementos[i + 1];
+        }
+        this.tamanho--;
     }
 
     public String busca(int posicao) {
@@ -55,7 +71,7 @@ public class Vetor {
     }
 
     public int busca(String elemento) {
-        for (int i=0; i<this.tamanho; i++) {
+        for (int i = 0; i < this.tamanho; i++) {
             if (this.elementos[i].equals(elemento)) {
                 return i;
             }
@@ -72,13 +88,13 @@ public class Vetor {
         StringBuilder s = new StringBuilder();
         s.append("[");
 
-        for (int i=0; i<this.tamanho-1; i++) {
+        for (int i = 0; i < this.tamanho - 1; i++) {
             s.append(this.elementos[i]);
             s.append(", ");
         }
 
-        if (this.tamanho>0) {
-            s.append(this.elementos[this.tamanho-1]);
+        if (this.tamanho > 0) {
+            s.append(this.elementos[this.tamanho - 1]);
         }
         s.append("]");
 
